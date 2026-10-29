@@ -4,9 +4,13 @@ Full Stack Open Part 10 application built with Expo SDK 55, React Native, Expo R
 
 Browse and filter repositories, sort ratings, register and sign in, create reviews, and manage your reviews. Repository and review lists support cursor pagination.
 
-## Publication status
+## Try the app
 
-EAS publication is pending. The published update's QR-code screenshot will be added here after the update is published and verified on a native device. This repository is not yet ready for the course's final submission.
+Scan the QR code with the [Expo Go](https://expo.dev/go) app to open the published version. It uses the course's hosted Rate Repository API, whose database is reset regularly.
+
+![QR code for the published app](qr-code.png)
+
+Published with EAS Update (branch `main`, runtime version 1.0.0). Link: `exp://u.expo.dev/f6e19967-ad0f-4fac-9631-74609a2a1044/group/3f1231ae-71ee-4f84-a1e5-9de651028534`
 
 ## Local setup
 

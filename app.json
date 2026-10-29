@@ -30,6 +30,19 @@
     "plugins": [
       "expo-router"
     ],
-    "scheme": "rate-repository"
+    "scheme": "rate-repository",
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "f6e19967-ad0f-4fac-9631-74609a2a1044"
+      }
+    },
+    "owner": "aynur-talukdar",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/f6e19967-ad0f-4fac-9631-74609a2a1044"
+    }
   }
 }
