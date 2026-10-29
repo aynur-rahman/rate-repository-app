@@ -10,9 +10,9 @@ export default function AppBar() {
   const { data } = useMe(); const storage = useAuthStorage(); const client = useApolloClient();
   const [error, setError] = useState(''); const [busy, setBusy] = useState(false);
   const signOut = async () => { setBusy(true); setError(''); try { await storage.removeAccessToken(); await client.resetStore(); router.replace('/'); } catch (e) { setError(errorMessage(e)); } finally { setBusy(false); } };
-  const tabs = [{ label: 'Repositories', onPress: () => router.push('/') }, data?.me
-    ? { label: busy ? 'Signing out…' : 'Sign out', onPress: () => void signOut() }
-    : { label: 'Sign in', onPress: () => router.push('/sign-in') }];
+  const tabs = [{ label: 'Repositories', onPress: () => router.push('/') }, ...(data?.me ? [
+    { label: 'Create a review', onPress: () => router.push('/create-review') }, { label: 'My reviews', onPress: () => router.push('/my-reviews') }, { label: busy ? 'Signing out…' : 'Sign out', onPress: () => void signOut() },
+  ] : [{ label: 'Sign in', onPress: () => router.push('/sign-in') }, { label: 'Sign up', onPress: () => router.push('/sign-up') }])];
   return <View style={styles.bar}><ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.tabs}>{tabs.map(tab => <Pressable key={tab.label} accessibilityRole="button" disabled={busy} onPress={tab.onPress} style={({ pressed }) => [styles.tab, pressed && { opacity: 0.6 }]}><Text style={styles.text}>{tab.label}</Text></Pressable>)}</ScrollView><ErrorMessage message={error} /></View>;
 }
 const styles = StyleSheet.create({ bar: { backgroundColor: theme.colors.appBar }, tabs: { flexDirection: 'row', paddingHorizontal: 8 }, tab: { padding: 16, minHeight: 52, justifyContent: 'center' }, text: { color: '#fff', fontWeight: '700' } });

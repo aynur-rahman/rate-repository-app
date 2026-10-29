@@ -1,6 +1,12 @@
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 import { SetContextLink } from '@apollo/client/link/context';
+import { relayStylePagination } from '@apollo/client/utilities';
 import AuthStorage from './authStorage';
+export const createCache = () => new InMemoryCache({ typePolicies: {
+  Query: { fields: { repositories: relayStylePagination(['orderBy', 'orderDirection', 'searchKeyword']) } },
+  Repository: { fields: { reviews: relayStylePagination() } },
+  User: { fields: { reviews: relayStylePagination() } },
+} });
 export default function createApolloClient(storage: AuthStorage) {
   const uri = process.env.EXPO_PUBLIC_APOLLO_URI;
   if (!uri) throw new Error('Set EXPO_PUBLIC_APOLLO_URI in .env before starting the app');
@@ -8,5 +14,5 @@ export default function createApolloClient(storage: AuthStorage) {
     const token = await storage.getAccessToken();
     return { headers: { ...previous.headers, authorization: token ? `Bearer ${token}` : '' } };
   });
-  return new ApolloClient({ link: auth.concat(new HttpLink({ uri })), cache: new InMemoryCache() });
+  return new ApolloClient({ link: auth.concat(new HttpLink({ uri })), cache: createCache() });
 }
